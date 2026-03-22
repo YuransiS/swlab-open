@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "./ui/Button";
-import { Modal } from "./ui/Modal";
 import { Send } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const Modal = dynamic(() => import("./ui/Modal").then(mod => mod.Modal), { ssr: false });
 
 export function FinalCTA() {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
-import { Modal } from "./ui/Modal";
+import dynamic from "next/dynamic";
+
+const Modal = dynamic(() => import("./ui/Modal").then(mod => mod.Modal), { ssr: false });
 
 export function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,8 +23,11 @@ export function Hero() {
         </div>
         
         <h1 className="mb-8 text-3xl leading-[1.15] font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-          Запусти свой прибыльный сервисный бизнес в Европе
+          День открытых дверей в SW LAB
         </h1>
+        <p className="mx-auto mb-8 max-w-2xl text-xl sm:text-2xl font-medium text-gray-700 px-2 sm:px-0">
+          Узнай, как запустить прибыльный сервисный бизнес в Европе с нуля
+        </p>
 
         {/* Real mockup image with motion */}
         <motion.div 

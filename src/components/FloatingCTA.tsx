@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "./ui/Button";
-import { Modal } from "./ui/Modal";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
+
+const Modal = dynamic(() => import("./ui/Modal").then(mod => mod.Modal), { ssr: false });
 
 export function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);

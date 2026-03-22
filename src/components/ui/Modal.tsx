@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send } from "lucide-react";
+import IntlTelInput from 'intl-tel-input/reactWithUtils';
+import 'intl-tel-input/styles';
 import { Button } from "./Button";
 
 interface ModalProps {
@@ -34,17 +36,40 @@ export function Modal({ isOpen, onClose }: ModalProps) {
 
   if (!mounted) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
     
     setIsLoading(true);
-    // Simulate API submission and redirect
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const utmData = {
+      utm_source: searchParams.get("utm_source") || "",
+      utm_medium: searchParams.get("utm_medium") || "",
+      utm_campaign: searchParams.get("utm_campaign") || "",
+      utm_content: searchParams.get("utm_content") || "",
+      utm_term: searchParams.get("utm_term") || "",
+    };
+
+    try {
+      await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          ...utmData,
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to submit form:", error);
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       window.open("https://t.me/swlab_bot", "_blank");
       onClose();
-    }, 600);
+    }, 300);
   };
 
   return createPortal(
@@ -89,14 +114,24 @@ export function Modal({ isOpen, onClose }: ModalProps) {
                   className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626]"
                 />
               </div>
-              <div>
-                <input
-                  type="tel"
-                  placeholder="Ваш телефон"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626]"
+              <div className="iti-wrapper">
+                <IntlTelInput
+                  initialValue={phone}
+                  onChangeNumber={setPhone}
+                  initOptions={{
+                    initialCountry: "auto",
+                    geoIpLookup: function(success: any, failure: any) {
+                      fetch("https://ipapi.co/json")
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) { success(data.country_code.toLowerCase()); })
+                        .catch(function() { failure(); });
+                    },
+                    strictMode: true,
+                  }}
+                  inputProps={{
+                    required: true,
+                    className: "w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626] !pl-12"
+                  }}
                 />
               </div>
 

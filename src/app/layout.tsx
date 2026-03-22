@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SW LAB | Open House",
-  description: "Запусти свой прибыльный сервисный бизнес в Европе",
+  title: "День открытых дверей в SW LAB",
+  description: "Узнай, как запустить свой прибыльный бизнес в Европе",
 };
 
 export default function RootLayout({
