@@ -26,7 +26,7 @@ export function Proofs() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Практика — это фундамент SW LAB
+            Практика — это фундамент SW <span className="text-[#DC2626]">LAB</span>
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-600">
             Мы не просто даем теорию. На ДОД вы увидите, как выстроено наше обучение, где каждый 

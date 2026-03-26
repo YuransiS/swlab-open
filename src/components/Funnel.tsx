@@ -12,7 +12,7 @@ export function Funnel() {
       num: 2,
       icon: <PlayCircle className="h-8 w-8 text-green-600" />,
       title: "Получите видео",
-      desc: "Вас ждет приветственное видео-сообщение от основателей SW LAB",
+      desc: <>Вас ждет приветственное видео-сообщение от основателей SW <span className="text-[#DC2626]">LAB</span></>,
     },
     {
       num: 3,
