@@ -74,7 +74,7 @@ export function Modal({ isOpen, onClose }: ModalProps) {
 
       setTimeout(() => {
         setIsLoading(false);
-        window.open("https://t.me/swlab_bot", "_blank");
+        window.open("https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830", "_blank");
         onClose();
       }, 300);
 
@@ -152,10 +152,10 @@ export function Modal({ isOpen, onClose }: ModalProps) {
                   type="submit" 
                   variant="primary" 
                   disabled={isLoading}
-                  className="w-full gap-2 relative"
+                  className="w-full gap-3 relative flex items-center justify-center"
                 >
-                  <Send className="w-5 h-5 absolute left-6 opacity-0 sm:opacity-100" />
-                  {isLoading ? "Обработка..." : "Открыть Telegram"}
+                  <Send className="w-5 h-5 hidden sm:block" />
+                  <span>{isLoading ? "Обработка..." : "Открыть Telegram"}</span>
                 </Button>
                 <p className="mt-3 text-center text-xs text-gray-400">
                   Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.

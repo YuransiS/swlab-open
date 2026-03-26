@@ -13,6 +13,7 @@ export async function POST(req: Request) {
 
     // Prepare payload identically to what code.gs accepts
     const payload = {
+      sheetName: 'Онлайн',
       name: data.name,
       phone: data.phone,
       utm_source: data.utm_source || '',
