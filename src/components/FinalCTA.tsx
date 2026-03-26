@@ -16,16 +16,15 @@ export function FinalCTA() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black"></div>
         <div className="relative z-10">
           <h2 className="mb-8 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl leading-tight">
-            Готовы узнать, как построить системный бизнес
+            Готов узнать, как построить системный бизнес или стать качественным мастером в Европе?
           </h2>
           
           <Button 
             onClick={() => setIsModalOpen(true)} 
-            variant="telegram"
-            className="mb-8 w-full sm:w-auto gap-3 px-10 py-5 text-xl font-bold shadow-xl shadow-blue-500/20 md:animate-pulse transition-transform focus:ring-offset-gray-900"
+            variant="primary"
+            className="mb-8 w-full sm:w-auto gap-3 px-10 py-5 text-xl font-bold md:animate-pulse transition-transform focus:ring-offset-gray-900"
           >
-            <Send className="h-6 w-6" />
-            ПЕРЕЙТИ В TELEGRAM-БОТА
+            Зарегистрироваться
           </Button>
           
           <p className="text-sm text-gray-400">

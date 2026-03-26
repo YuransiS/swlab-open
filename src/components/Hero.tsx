@@ -23,10 +23,10 @@ export function Hero() {
         </div>
         
         <h1 className="mb-8 text-3xl leading-[1.15] font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-          День открытых дверей в SW LAB
+          Узнай, как запустить прибыльный сервисный бизнес в Европе с нуля или стать востребованным мастером
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-xl sm:text-2xl font-medium text-gray-700 px-2 sm:px-0">
-          Узнай, как запустить прибыльный сервисный бизнес в Европе с нуля
+          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать от 10 000 злотых в месяц
         </p>
 
         {/* Real mockup image with motion */}
@@ -38,8 +38,8 @@ export function Hero() {
           className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl shadow-gray-200/50"
         >
           <img 
-            src="/hero-mockup.png" 
-            alt="Live Broadcast Preview" 
+            src="/swlab-event.png" 
+            alt="SW LAB Offline Event" 
             className="w-full h-auto object-cover"
           />
         </motion.div>
@@ -50,8 +50,8 @@ export function Hero() {
         </p>
         
         <div className="flex flex-col items-center justify-center space-y-4">
-          <Button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto sm:min-w-[300px]">
-            ПОЛУЧИТЬ ДОСТУП К ЭФИРУ
+          <Button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto sm:min-w-[400px]">
+            Зарегистрироваться на онлайн-трансляцию 4 апреля
           </Button>
           <p className="text-xs sm:text-sm shadow-none text-gray-500 max-w-xs sm:max-w-none">
             После регистрации вы получите секретное видео от основателей
