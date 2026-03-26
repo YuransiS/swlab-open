@@ -29,19 +29,29 @@ export function Hero() {
           Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать от 10 000 злотых в месяц
         </p>
 
-        {/* Real mockup image with motion */}
+        {/* Real mockup video with motion */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl shadow-gray-200/50"
+          className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border border-gray-100 bg-black shadow-2xl shadow-gray-200/50"
         >
-          <img 
-            src="/swlab-event.png" 
-            alt="SW LAB Offline Event" 
-            className="w-full h-auto object-cover"
-          />
+          <div className="relative aspect-[16/9] w-full bg-black">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="h-full w-full object-cover"
+            >
+              <source src="/hero-bg-workshop.webm" type="video/webm" />
+              <source src="/hero-bg-workshop.mp4" type="video/mp4" />
+              Ваш браузер не поддерживает видео.
+            </video>
+            {/* Overlay to ensure text readability if needed (though here the text is above) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+          </div>
         </motion.div>
 
         <p className="mx-auto mb-8 max-w-2xl text-base sm:text-lg leading-relaxed text-gray-600 px-2 sm:px-0">
