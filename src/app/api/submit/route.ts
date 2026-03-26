@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+const GOOGLE_SCRIPTS_PREFIX = 'https://script.google.com/macros/s/AKfycbwKJpDiPJbNSrTjhNs_9P87efKICxu2hpSDKCH0NfhcPJ_R0efZqGooqrVVIPOz5QVOSg/exec';
+
 export async function POST(req: Request) {
   try {
     const data = await req.json();
@@ -9,8 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 });
     }
 
-    // Google Sheets integration preparation (задел под отправку данных)
-    // Here we construct the exact payload with expanded UTM tags
+    // Prepare payload identically to what code.gs accepts
     const payload = {
       name: data.name,
       phone: data.phone,
@@ -19,22 +20,26 @@ export async function POST(req: Request) {
       utm_campaign: data.utm_campaign || '',
       utm_content: data.utm_content || '',
       utm_term: data.utm_term || '',
-      created_at: new Date().toISOString()
+      page_url: data.page_url || ''
     };
 
     console.log('Sending data to Google Sheets:', payload);
 
-    // TODO: Replace with actual Google Sheets API call or Zapier/Make webhook
-    /*
-    const GOOGLE_SHEETS_WEBHOOK = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
-    if (GOOGLE_SHEETS_WEBHOOK) {
-      await fetch(GOOGLE_SHEETS_WEBHOOK, {
+    try {
+      // Send directly to the web app URL
+      const response = await fetch(GOOGLE_SCRIPTS_PREFIX, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      
+      if (!response.ok) {
+        throw new Error(`Google Apps Script responded with status: ${response.status}`);
+      }
+    } catch (fetchError) {
+      console.error('Failed to send to Google Sheets:', fetchError);
+      return NextResponse.json({ error: 'Data logging failed' }, { status: 502 });
     }
-    */
 
     return NextResponse.json({ success: true, message: 'Data logged successfully' });
   } catch (error) {

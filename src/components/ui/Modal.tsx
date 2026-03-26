@@ -52,24 +52,36 @@ export function Modal({ isOpen, onClose }: ModalProps) {
     };
 
     try {
-      await fetch("/api/submit", {
+      const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
           phone,
+          page_url: window.location.href, // added page_url
           ...utmData,
         }),
       });
+      
+      if (!res.ok) {
+        throw new Error("Submission failed");
+      }
+
+      // Fire FB event ONLY after successful submission
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead');
+      }
+
+      setTimeout(() => {
+        setIsLoading(false);
+        window.open("https://t.me/swlab_bot", "_blank");
+        onClose();
+      }, 300);
+
     } catch (error) {
       console.error("Failed to submit form:", error);
-    }
-
-    setTimeout(() => {
       setIsLoading(false);
-      window.open("https://t.me/swlab_bot", "_blank");
-      onClose();
-    }, 300);
+    }
   };
 
   return createPortal(
