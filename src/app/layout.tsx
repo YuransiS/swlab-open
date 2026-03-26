@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-100 selection:text-red-900`}>
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -41,8 +41,6 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-100 selection:text-red-900`}>
         <noscript>
           <img
             height="1"

@@ -25,7 +25,7 @@ export function Hero() {
           <source src="/hero-bg-workshop.mp4" type="video/mp4" />
         </video>
         {/* Dynamic Gradient Overlay for Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 pointer-events-none" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-xl text-center">
@@ -33,7 +33,7 @@ export function Hero() {
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/20"
+          className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3 py-1.5 text-[10px] font-semibold text-white ring-1 ring-white/20"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
@@ -42,12 +42,12 @@ export function Hero() {
           <span className="tracking-wider">LIVE | 4 АПРЕЛЯ | БЕСПЛАТНО</span>
         </motion.div>
         
-        <h1 className="mb-4 text-2xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-          Узнай, как запустить бизнес в Европе или стать <span className="text-[#DC2626]">востребованным мастером</span>
+        <h1 className="mb-3 text-xl leading-snug font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl px-2">
+          Узнай, как запустить бизнес в Европе или стать <br className="hidden sm:block" /><span className="text-[#DC2626]">востребованным мастером</span>
         </h1>
         
-        <p className="mx-auto mb-10 max-w-md text-base sm:text-lg font-medium text-gray-200 px-4 md:px-0 opacity-90">
-          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать <span className="text-[#DC2626] font-bold text-lg md:text-xl whitespace-nowrap">от 10 000 злотых</span> в месяц.
+        <p className="mx-auto mb-8 max-w-sm text-sm sm:text-base font-medium text-gray-200 px-4 md:px-0 opacity-90">
+          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать <br className="hidden sm:block" /><span className="text-[#DC2626] font-bold text-base md:text-lg whitespace-nowrap">от 10 000 злотых</span> в месяц
         </p>
         
         <div className="flex flex-col items-center justify-center space-y-4 px-2">
