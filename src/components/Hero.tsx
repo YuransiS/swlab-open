@@ -11,60 +11,54 @@ export function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="relative px-4 pt-16 pb-16 md:pt-24 md:pb-24 overflow-hidden border-b border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-100 via-white to-white"></div>
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1.5 md:px-4 md:py-2 text-[10px] sm:text-sm font-medium text-green-600 ring-1 ring-inset ring-green-600/20">
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-          </span>
-          <span className="whitespace-nowrap">ONLINE-ТРАНСЛЯЦИЯ | 4 АПРЕЛЯ | БЕСПЛАТНО</span>
-        </div>
-        
-        <h1 className="mb-8 text-3xl leading-[1.15] font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-          Узнай, как запустить прибыльный сервисный бизнес в Европе с нуля или стать востребованным мастером
-        </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-xl sm:text-2xl font-medium text-gray-700 px-2 sm:px-0">
-          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать от 10 000 злотых в месяц
-        </p>
-
-        {/* Real mockup video with motion */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border border-gray-100 bg-black shadow-2xl shadow-gray-200/50"
+    <section className="relative min-h-[100dvh] flex flex-col justify-end px-4 pb-12 overflow-hidden bg-black">
+      {/* Background Video Layer */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="h-full w-full object-cover"
         >
-          <div className="relative aspect-[16/9] w-full bg-black">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              className="h-full w-full object-cover"
-            >
-              <source src="/hero-bg-workshop.webm" type="video/webm" />
-              <source src="/hero-bg-workshop.mp4" type="video/mp4" />
-              Ваш браузер не поддерживает видео.
-            </video>
-            {/* Overlay to ensure text readability if needed (though here the text is above) */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-          </div>
-        </motion.div>
+          <source src="/hero-bg-workshop.webm" type="video/webm" />
+          <source src="/hero-bg-workshop.mp4" type="video/mp4" />
+        </video>
+        {/* Dynamic Gradient Overlay for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90 pointer-events-none" />
+      </div>
 
-        <p className="mx-auto mb-8 max-w-2xl text-base sm:text-lg leading-relaxed text-gray-600 px-2 sm:px-0">
-          Прямая трансляция из главного офиса SW LAB в Варшаве. Узнай, как работают наши
-          бизнес-модели, и подготовься к запуску в своей стране.
+      <div className="relative z-10 mx-auto w-full max-w-xl text-center">
+        {/* Top Tag - Clean and Subtle */}
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/20"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+          </span>
+          <span className="tracking-wider">LIVE | 4 АПРЕЛЯ | БЕСПЛАТНО</span>
+        </motion.div>
+        
+        <h1 className="mb-4 text-2xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          Узнай, как запустить бизнес в Европе или стать <span className="text-[#DC2626]">востребованным мастером</span>
+        </h1>
+        
+        <p className="mx-auto mb-10 max-w-md text-base sm:text-lg font-medium text-gray-200 px-4 md:px-0 opacity-90">
+          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать <span className="text-[#DC2626] font-bold text-lg md:text-xl whitespace-nowrap">от 10 000 злотых</span> в месяц.
         </p>
         
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <Button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto sm:min-w-[400px]">
-            Зарегистрироваться на онлайн-трансляцию 4 апреля
+        <div className="flex flex-col items-center justify-center space-y-4 px-2">
+          <Button 
+            onClick={() => setIsModalOpen(true)} 
+            className="w-full sm:w-auto sm:min-w-[400px] h-16 text-lg font-bold shadow-2xl shadow-[#DC2626]/20 transition-all hover:shadow-[#DC2626]/40 active:scale-95"
+          >
+            Зарегистрироваться на эфир
           </Button>
-          <p className="text-xs sm:text-sm shadow-none text-gray-500 max-w-xs sm:max-w-none">
-            После регистрации вы получите секретное видео от основателей
+          <p className="text-[10px] sm:text-xs text-gray-400 font-medium tracking-wide uppercase opacity-70">
+            Доступ в закрытый канал появится после регистрации
           </p>
         </div>
       </div>
