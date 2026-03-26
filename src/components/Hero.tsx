@@ -25,7 +25,10 @@ export function Hero() {
           <source src="/hero-bg-workshop.mp4" type="video/mp4" />
         </video>
         {/* Dynamic Gradient Overlay for Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 pointer-events-none" />
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.95) 100%)' }}
+        />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-xl text-center">
