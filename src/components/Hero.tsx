@@ -14,26 +14,26 @@ export function Hero() {
     <section className="relative min-h-[100dvh] flex flex-col justify-end px-4 pb-12 overflow-hidden bg-black">
       {/* Background Video Layer */}
       <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
           className="h-full w-full object-cover"
         >
           <source src="/hero-bg-workshop.webm" type="video/webm" />
           <source src="/hero-bg-workshop.mp4" type="video/mp4" />
         </video>
         {/* Dynamic Gradient Overlay for Readability */}
-        <div 
-          className="absolute inset-0 pointer-events-none" 
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.95) 100%)' }}
         />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-xl text-center">
         {/* Top Tag - Clean and Subtle */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3 py-1.5 text-[10px] font-semibold text-white ring-1 ring-white/20"
@@ -44,18 +44,18 @@ export function Hero() {
           </span>
           <span className="tracking-wider">LIVE | 4 АПРЕЛЯ | БЕСПЛАТНО</span>
         </motion.div>
-        
+
         <h1 className="mb-3 text-xl leading-snug font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl px-2">
           Узнай, как запустить бизнес в Европе или стать <br className="hidden sm:block" /><span className="text-[#DC2626]">востребованным мастером</span>
         </h1>
-        
+
         <p className="mx-auto mb-8 max-w-sm text-sm sm:text-base font-medium text-gray-200 px-4 md:px-0 opacity-90">
-          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать <br className="hidden sm:block" /><span className="text-[#DC2626] font-bold text-base md:text-lg whitespace-nowrap">от 10 000 злотых</span> в месяц
+          Разберем бизнес-модель, которая позволяет мастеру по сервису зарабатывать <br className="hidden sm:block" /><span className="text-[#DC2626] font-bold text-base md:text-lg whitespace-nowrap">от 2500 евро</span> в месяц
         </p>
-        
+
         <div className="flex flex-col items-center justify-center space-y-4 px-2">
-          <Button 
-            onClick={() => setIsModalOpen(true)} 
+          <Button
+            onClick={() => setIsModalOpen(true)}
             className="w-full sm:w-auto sm:min-w-[400px] h-16 text-lg font-bold shadow-2xl shadow-[#DC2626]/20 transition-all hover:shadow-[#DC2626]/40 active:scale-95"
           >
             Зарегистрироваться на эфир
@@ -65,7 +65,7 @@ export function Hero() {
           </p>
         </div>
       </div>
-      
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
