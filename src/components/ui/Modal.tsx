@@ -36,6 +36,18 @@ export function Modal({ isOpen, onClose }: ModalProps) {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    let timer: any;
+    if (isSubmitted && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else if (isSubmitted && countdown === 0) {
+      window.location.href = "https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830";
+    }
+    return () => clearInterval(timer);
+  }, [isSubmitted, countdown]);
+
   if (!mounted) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -83,17 +95,6 @@ export function Modal({ isOpen, onClose }: ModalProps) {
     }
   };
 
-  useEffect(() => {
-    let timer: any;
-    if (isSubmitted && countdown > 0) {
-      timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-    } else if (isSubmitted && countdown === 0) {
-      window.location.href = "https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830";
-    }
-    return () => clearInterval(timer);
-  }, [isSubmitted, countdown]);
 
   return createPortal(
     <AnimatePresence>
