@@ -84,7 +84,7 @@ export function Modal({ isOpen, onClose }: ModalProps) {
   };
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: any;
     if (isSubmitted && countdown > 0) {
       timer = setInterval(() => {
         setCountdown((prev) => prev - 1);
