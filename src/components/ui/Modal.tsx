@@ -18,6 +18,8 @@ export function Modal({ isOpen, onClose }: ModalProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     setMounted(true);
@@ -58,7 +60,7 @@ export function Modal({ isOpen, onClose }: ModalProps) {
         body: JSON.stringify({
           name,
           phone,
-          page_url: window.location.href, // added page_url
+          page_url: window.location.href,
           ...utmData,
         }),
       });
@@ -72,17 +74,26 @@ export function Modal({ isOpen, onClose }: ModalProps) {
         (window as any).fbq('track', 'Lead');
       }
 
-      setTimeout(() => {
-        setIsLoading(false);
-        window.open("https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830", "_blank");
-        onClose();
-      }, 300);
+      setIsSubmitted(true);
+      setIsLoading(false);
 
     } catch (error) {
       console.error("Failed to submit form:", error);
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isSubmitted && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else if (isSubmitted && countdown === 0) {
+      window.location.href = "https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830";
+    }
+    return () => clearInterval(timer);
+  }, [isSubmitted, countdown]);
 
   return createPortal(
     <AnimatePresence>
@@ -108,60 +119,98 @@ export function Modal({ isOpen, onClose }: ModalProps) {
               <X className="h-5 w-5" />
             </button>
 
-            <div className="text-center mb-6">
-              <h2 className="mb-2 text-2xl font-bold text-gray-900">Доступ к эфиру</h2>
-              <p className="text-gray-600 text-sm">
-                Оставьте свои данные, чтобы получить персональную ссылку-приглашение в нашего Telegram-бота.
-              </p>
-            </div>
+            {!isSubmitted ? (
+              <>
+                <div className="text-center mb-6">
+                  <h2 className="mb-2 text-2xl font-bold text-gray-900">Доступ к эфиру</h2>
+                  <p className="text-gray-600 text-sm">
+                    Оставьте свои данные, чтобы получить персональную ссылку-приглашение в нашего Telegram-бота.
+                  </p>
+                </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626]"
-                />
-              </div>
-              <div className="iti-wrapper">
-                <IntlTelInput
-                  initialValue={phone}
-                  onChangeNumber={setPhone}
-                  initOptions={{
-                    initialCountry: "auto",
-                    geoIpLookup: function(success: any, failure: any) {
-                      fetch("https://ipapi.co/json")
-                        .then(function(res) { return res.json(); })
-                        .then(function(data) { success(data.country_code.toLowerCase()); })
-                        .catch(function() { failure(); });
-                    },
-                    strictMode: true,
-                  }}
-                  inputProps={{
-                    required: true,
-                    className: "w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626] !pl-12"
-                  }}
-                />
-              </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Ваше имя"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626]"
+                    />
+                  </div>
+                  <div className="iti-wrapper">
+                    <IntlTelInput
+                      initialValue={phone}
+                      onChangeNumber={setPhone}
+                      initOptions={{
+                        initialCountry: "auto",
+                        geoIpLookup: function(success: any, failure: any) {
+                          fetch("https://ipapi.co/json")
+                            .then(function(res) { return res.json(); })
+                            .then(function(data) { success(data.country_code.toLowerCase()); })
+                            .catch(function() { failure(); });
+                        },
+                        strictMode: true,
+                      }}
+                      inputProps={{
+                        required: true,
+                        className: "w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-gray-900 outline-none transition-colors focus:border-[#DC2626] focus:bg-white focus:ring-1 focus:ring-[#DC2626] !pl-12"
+                      }}
+                    />
+                  </div>
 
-              <div className="pt-2">
-                <Button 
-                  type="submit" 
-                  variant="primary" 
-                  disabled={isLoading}
-                  className="w-full gap-3 relative flex items-center justify-center"
-                >
-                  <Send className="w-5 h-5 hidden sm:block" />
-                  <span>{isLoading ? "Обработка..." : "Открыть Telegram"}</span>
-                </Button>
-                <p className="mt-3 text-center text-xs text-gray-400">
-                  Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.
+                  <div className="pt-2">
+                    <Button 
+                      type="submit" 
+                      variant="primary" 
+                      disabled={isLoading}
+                      className="w-full gap-3 relative flex items-center justify-center"
+                    >
+                      <Send className="w-5 h-5 hidden sm:block" />
+                      <span>{isLoading ? "Обработка..." : "Открыть Telegram"}</span>
+                    </Button>
+                    <p className="mt-3 text-center text-xs text-gray-400">
+                      Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.
+                    </p>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-6"
+              >
+                <div className="mb-6 flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 animate-ping rounded-full bg-green-500/20" />
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                
+                <h2 className="mb-3 text-2xl font-bold text-gray-900">Регистрация успешна!</h2>
+                <p className="mb-8 text-gray-600">
+                  Вы будете перенаправлены в Telegram через <span className="font-bold text-[#DC2626]">{countdown}</span> сек.
                 </p>
-              </div>
-            </form>
+
+                <Button 
+                  onClick={() => window.location.href = "https://t.me/swlab_education_bot?start=69c565bae08bbbc079059830"}
+                  variant="primary" 
+                  className="w-full h-14 text-lg font-bold shadow-lg"
+                >
+                  Перейти в Telegram сейчас
+                </Button>
+                
+                <p className="mt-4 text-xs text-gray-400">
+                  Если переход не произошел автоматически, нажмите на кнопку выше.
+                </p>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       )}
